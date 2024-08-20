@@ -13,7 +13,7 @@ As the user changes the month and/or year in the dropdown lists, the database is
 
 ## Use
 
-1) clone, fork, or download this repo
+1) Clone, fork, or download this repo.
 2) Pandas and Flask will need to be installed in the environment.
 3) Run the app:
 
@@ -21,4 +21,5 @@ As the user changes the month and/or year in the dropdown lists, the database is
 python app.py
 ```
 
-4) To begin the Flask server, and visit the page at http://localhost:5000
+4) To begin the Flask server, and visit the page at http://localhost:5000.
+5) Have fun! And puruse the code as you wish.
