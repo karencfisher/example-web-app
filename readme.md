@@ -1,5 +1,5 @@
-This is a simple, end to end ETL and a full stack interactive dashboard, as example
-for students in the UCB/EdX Data Analytics boot camp. 
+This is a simple, end to end ETL and a full stack interactive dashboard, as an example
+to hopefully be of use to students in the UCB/EdX Data Analytics boot camp. 
 
 ![](Screenshot.jpg)
 
