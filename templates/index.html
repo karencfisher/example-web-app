@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Average Temperature by Stata</title>
+    <link rel="stylesheet" href="../static/style.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="../static/script.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>Average Temperatures in the Lower 48</h1>
+    </header>
+    <main>
+        <div>
+            <fieldset  id="selection">
+                <legend>Select month and year</legend>
+                <label for="month">Month</label>
+                <select name="month" id="month"></select><br>
+                <label for="year">Year</label>
+                <select name="year" id="year"></select>
+            </fieldset>
+        </div>
+        <div id="choropleth"></div>
+    </main>
+</body>
+</html>
