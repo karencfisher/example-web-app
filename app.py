@@ -1,10 +1,17 @@
 from flask import Flask, request, jsonify, render_template
-import sqlite3
+import psycopg2
 from pathlib import Path
+from dotenv import load_dotenv
+import os
 
 
 app = Flask(__name__)
-
+load_dotenv()
+conn_string = f"dbname='us_temperatures' \
+                user={os.getenv('DB_USER')} \
+                password={os.getenv('DB_PASSWORD')} \
+                host={os.getenv('DB_HOST')} \
+                port='5432'"
 
 @app.route('/')
 def home():
@@ -17,17 +24,19 @@ def search():
     year = request.args.get('year')
 
     # connect to the SQLite database
-    conn = sqlite3.connect(Path('db/temperatures.sqlite'))
+    conn = psycopg2.connect(conn_string)
     cursor = conn.cursor()
 
     # generate and run the query
-    sql = f'''
-SELECT states.state_id, states.state, temperatures.average_temp FROM temperatures
-JOIN states
-ON states.state_id = temperatures.state_id
-WHERE temperatures.month = {month} AND temperatures.year = {year}
-'''
-    results = cursor.execute(sql).fetchall()
+    sql = '''
+    SELECT states.state_id, states.state, temperatures.average_temp 
+    FROM temperatures
+    JOIN states ON states.state_id = temperatures.state_id
+    WHERE temperatures.month = %s AND temperatures.year = %s
+    '''
+
+    cursor.execute(sql, (month, year))
+    results = cursor.fetchall()
     data = [{'code': result[0], 'state': result[1], 'avg_temp': result[2]} for result in results]    
     cursor.close()
     conn.close()
@@ -37,12 +46,13 @@ WHERE temperatures.month = {month} AND temperatures.year = {year}
 
 @app.route('/years')
 def years():
-    conn = sqlite3.connect(Path('db/temperatures.sqlite'))
+    conn = psycopg2.connect(conn_string)
     cursor = conn.cursor()
 
     # Get the list of years
-    sql = 'SELECT DISTINCT year FROM temperatures'
-    results = [result[0] for result in cursor.execute(sql).fetchall()]
+    sql = 'SELECT DISTINCT year FROM temperatures ORDER BY year'
+    cursor.execute(sql)
+    results = [result[0] for result in cursor.fetchall()]
     cursor.close()
     conn.close()
 

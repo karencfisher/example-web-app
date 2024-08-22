@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS states;
+DROP TABLE IF EXISTS states CASCADE;
 CREATE TABLE states
 (
     state_id CHAR(2) PRIMARY KEY,
