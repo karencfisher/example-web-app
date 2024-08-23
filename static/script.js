@@ -5,7 +5,7 @@ const monthList = document.getElementById("month");
 // On loading the page 
 addEventListener("load", () => {
     // Query through the Flask app to get the list of years
-    d3.json('\years').then(data => {
+    d3.json('/years').then(data => {
         data['years'].forEach(element => {
             // Add the Options tags with the year select element.
             // We create a new option element and add its parameters
@@ -36,7 +36,7 @@ addEventListener("load", () => {
 
     // Initially display the choropleth map for the first year and
     // month
-    d3.json('\search?month=1&year=1950').then(data =>{
+    d3.json('/search?month=1&year=1950').then(data =>{
         plotChoropleth(data, "January", "1950");
     })
 });
@@ -49,7 +49,7 @@ function queryMonthYear() {
     const year = yearList.options[yearList.selectedIndex].value;
 
     // Construct the URL to make the query
-    url = `\search?month=${month}&year=${year}`;
+    url = `/search?month=${month}&year=${year}`;
     d3.json(url).then(data => {
         plotChoropleth(data, monthName, year);
     });
